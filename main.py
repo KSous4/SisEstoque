@@ -6,5 +6,4 @@ app = FastAPI()
 
 
 
-app.add_route(route=mainRoute)
-
+app.include_router(mainRoute)
