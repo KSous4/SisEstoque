@@ -6,4 +6,4 @@ services:
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=logs
+      - POSTGRES_DB=SisEstoque
