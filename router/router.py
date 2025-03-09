@@ -1,11 +1,10 @@
-#from router.authRoutes import AuthRoute
-
-from fastapi import APIRouter
+from database.SisEstoqueDB import Database
+from router.authRoutes import AuthRoute
+from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from http import HTTPStatus
 
 mainRoute = APIRouter()
-
 
 @mainRoute.get("/ping")
 async def healthCheck():
@@ -14,4 +13,4 @@ async def healthCheck():
         content={'status': 'pong'})
 
 
-#mainRoute.add_route(route=AuthRoute)
+mainRoute.include_router(AuthRoute)

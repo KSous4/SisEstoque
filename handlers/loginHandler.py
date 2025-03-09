@@ -1,31 +1,43 @@
-from auth.authenticate import Authentication
-
-from fastapi import Response,HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import HTTPException
 from fastapi.responses import JSONResponse
+from auth.authenticate import Authentication
+from models.userModel import Users
 from http import HTTPStatus
+from sqlmodel import select, Session  # Import Session from sqlmodel
 import logging
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
-def authenticateUser(r: Response, formData: OAuth2PasswordRequestForm):
 
-    # must have to implements the getUsr method to get user data from db
-    usr: dict = getUsr(formData.username)
-    if not usr or formData.password != usr['passwd']:
-        raise HTTPException(status_code=HTTPStatus.UNAUTHORIZED,
-                            detail="Invalid credentials")
+async def authenticateUser(formData: OAuth2PasswordRequestForm, session: Session):
+    stmt = select(Users).where(Users.username == formData.username)
+    user = session.exec(stmt).first()
+    
+    if not user or formData.password != user.passwd:
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail="Invalid credentials"
+        )
 
-    token = Authentication.create_acess_token(data={'sub': formData.username})
+    # Create an access token for the authenticated user
+    token = Authentication.create_access_token(data={'sub': formData.username})
 
-    r.set_cookie(
+
+    response = JSONResponse(
+        content={'message': 'Logged in successfully'}, 
+        status_code=HTTPStatus.OK
+    )
+
+    response.set_cookie(
         key='accessToken',
         value=token,
         httponly=True,
-        max_age=20,
-        secure=True,
-        samesite='lax'
+        max_age=30 * 60,
+        secure=False,
+        samesite='lax',
+        path='/'
     )
 
-    return JSONResponse(
-        content={'message': 'Logged successfully'}, status_code=HTTPStatus.OK
-    )
+    return response
