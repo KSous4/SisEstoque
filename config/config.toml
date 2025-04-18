@@ -3,3 +3,7 @@ SECRET_KEY = "EUqRZYAN28/5Xe08yOSV+wQtEQJ+CmRv8JaGu5/rcjY="
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+[dbParameters]
+USER = defaultuser
+PASSWORD = passswdTeste
+DATABASE = rodesdb

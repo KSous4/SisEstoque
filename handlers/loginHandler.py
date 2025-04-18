@@ -2,9 +2,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 from auth.authenticate import Authentication
-from models.userModel import Users
+#from models.userModel import Users
 from http import HTTPStatus
-from sqlmodel import select, Session  # Import Session from sqlmodel
+from sqlmodel import select, Session 
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -21,7 +21,6 @@ async def authenticateUser(formData: OAuth2PasswordRequestForm, session: Session
             detail="Invalid credentials"
         )
 
-    # Create an access token for the authenticated user
     token = Authentication.create_access_token(data={'sub': formData.username})
 
 
