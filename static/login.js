@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Login bem-sucedido:', data);
   
   
-        alert(Bem-vindo(a), ${data.nome || 'usuário'}!);
+        //alert(Bem-vindo(a), ${data.nome || 'usuário'});
   
   
       } catch (error) {
