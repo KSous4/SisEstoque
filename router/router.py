@@ -18,6 +18,6 @@ async def healthCheck():
 
 @mainRoute.get('/')
 async def root(request: Request):
-    return templates.TemplateResponse('login.html', {'request':request})
+    return templates.TemplateResponse('./login/login.html', {'request':request})
 
 #mainRoute.include_router(AuthRoute)

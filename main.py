@@ -2,6 +2,7 @@ from router.router import mainRoute
 from fastapi import FastAPI, Request
 import logging
 #from sqlalchemy import text
+from fastapi.staticfiles import StaticFiles
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -15,6 +16,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 # Include the router
 app.include_router(mainRoute)
 
