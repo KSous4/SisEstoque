@@ -1,5 +1,3 @@
-#from database.SisEstoqueDB import Database
-#from router.authRoutes import AuthRoute
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from fastapi import Request
@@ -20,4 +18,3 @@ async def healthCheck():
 async def root(request: Request):
     return templates.TemplateResponse('./login/login.html', {'request':request})
 
-#mainRoute.include_router(AuthRoute)
