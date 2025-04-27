@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordem de Serviço - RODESTOCK</title>
+  <link rel="shortcut icon" href="Loginimg/rodesicon.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #2c2c2c;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
+
+    .banner-topo {
+      width: 100%;
+      background: linear-gradient(to right, #00AEEB, #142C5A);
+      padding: 10px 20px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .banner-topo img {
+      height: 50px;
+    }
+
+    .banner-topo h1 {
+      color: white;
+      font-size: 26px;
+      margin: 0;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .ordem-servico {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      width: 800px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    .ordem-servico h2 {
+      background-color: #142C5A;
+      color: #fff;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    input, textarea {
+      background: #f0f0f0;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .rodape {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+      gap: 10px;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px;
+      background: linear-gradient(to right, #00AEEB, #142C5A);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #00AEEB, #0d1e3d);
+    }
+  </style>
+</head>
+<body>
+
+<div class="banner-topo">
+  <h1>RODESTOCK</h1>
+  <img src="OSimg/rodeslogo.jpeg" alt="Logo Rodestock">
+</div>
+
+<div class="ordem-servico" id="ordemServico">
+  <div class="secao">
+    <h2>CLIENTE</h2>
+    <div class="grid">
+      <div class="campo">
+        <label for="nomeCliente">Nome:</label>
+        <input type="text" id="nomeCliente" value="Prolog App Sistemas para Frotas">
+      </div>
+      <div class="campo">
+        <label for="enderecoCliente">Endereço:</label>
+        <input type="text" id="enderecoCliente" value="R. Najla Carone Guedert - Passa Vinte, Palhoça - SC, 88132-150">
+      </div>
+      <div class="campo">
+        <label for="telefoneCliente">Telefone:</label>
+        <input type="text" id="telefoneCliente" value="(48) 3380-9299">
+      </div>
+      <div class="campo">
+        <label for="cnpjCliente">CNPJ:</label>
+        <input type="text" id="cnpjCliente" value="24.013.399/0001-03">
+      </div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <h2>VEÍCULO</h2>
+    <div class="grid">
+      <div class="campo">
+        <label for="nomeVeiculo">Nome:</label>
+        <input type="text" id="nomeVeiculo" value="Caminhão de carga 2 eixos">
+      </div>
+      <div class="campo">
+        <label for="modeloVeiculo">Modelo:</label>
+        <input type="text" id="modeloVeiculo" value="R 560">
+      </div>
+      <div class="campo">
+        <label for="marcaVeiculo">Marca:</label>
+        <input type="text" id="marcaVeiculo" value="Scania">
+      </div>
+      <div class="campo">
+        <label for="placaVeiculo">Placa:</label>
+        <input type="text" id="placaVeiculo" value="PRL 2X23">
+      </div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <h2>DIAGNÓSTICO</h2>
+    <div class="campo">
+      <label for="diagnostico">Diagnóstico:</label>
+      <textarea id="diagnostico">Vazamento da mangueira de óleo</textarea>
+    </div>
+  </div>
+
+  <div class="secao">
+    <h2>SOLUÇÃO</h2>
+    <div class="campo">
+      <label for="solucao">Solução:</label>
+      <textarea id="solucao">- Realizar a troca da mangueira
+- Fazer a limpeza do cárter</textarea>
+    </div>
+  </div>
+
+  <div class="secao">
+    <h2>PEÇAS TROCADAS</h2>
+    <div class="campo">
+      <label for="pecasTrocadas">Peças:</label>
+      <textarea id="pecasTrocadas">- Mangueira de óleo</textarea>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <div class="campo">
+      <label for="dataServico">Data do Serviço:</label>
+      <input type="date" id="dataServico" value="2023-01-19">
+    </div>
+    <div class="campo">
+      <label for="tecnicoResponsavel">Técnico Responsável:</label>
+      <input type="text" id="tecnicoResponsavel" value="John Doe">
+    </div>
+  </div>
+  <div class="rodape">
+    <div class="campo">
+      <label for="contatoCliente">Contatos:</label>
+      <input type="text" id="contatoCliente" value="(XX) XXXX-XXXX">
+    </div>
+    <div class="campo">
+      <label for="totalServico">Total do Serviço:</label>
+      <input type="text" id="totalServico" value="R$ XX,XX">
+    </div>
+  </div>
+
+  <div class="botoes">
+    <button class="btn" onclick="salvarOrdem()">Salvar</button>
+    <button class="btn" onclick="imprimirOrdem()">Imprimir</button>
+  </div>
+</div>
+
+<script>
+  function salvarOrdem() {
+    const dados = {
+      numeroOS: document.getElementById('numeroOS').innerText,
+      nomeCliente: document.getElementById('nomeCliente').value,
+      enderecoCliente: document.getElementById('enderecoCliente').value,
+      telefoneCliente: document.getElementById('telefoneCliente').value,
+      cnpjCliente: document.getElementById('cnpjCliente').value,
+      nomeVeiculo: document.getElementById('nomeVeiculo').value,
+      modeloVeiculo: document.getElementById('modeloVeiculo').value,
+      marcaVeiculo: document.getElementById('marcaVeiculo').value,
+      placaVeiculo: document.getElementById('placaVeiculo').value,
+      diagnostico: document.getElementById('diagnostico').value,
+      solucao: document.getElementById('solucao').value,
+      pecasTrocadas: document.getElementById('pecasTrocadas').value,
+      dataServico: document.getElementById('dataServico').value,
+      tecnicoResponsavel: document.getElementById('tecnicoResponsavel').value,
+      contatoCliente: document.getElementById('contatoCliente').value,
+      totalServico: document.getElementById('totalServico').value,
+    };
+
+    console.log("Dados da Ordem de Serviço:", dados);
+    alert("Ordem de Serviço salva (dados no console)!");
+  }
+
+  function imprimirOrdem() {
+    const ordem = document.getElementById('ordemServico').innerHTML;
+    const original = document.body.innerHTML;
+
+    document.body.innerHTML = ordem;
+    window.print();
+    document.body.innerHTML = original;
+    location.reload(); // recarrega para voltar a página normal
+  }
+</script>
+
+</body>
+</html>
