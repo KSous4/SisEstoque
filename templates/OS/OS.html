@@ -28,6 +28,12 @@
       border-radius: 0 0 10px 10px;
     }
 
+    .banner-esquerda {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .banner-topo img {
       height: 50px;
     }
@@ -38,6 +44,23 @@
       margin: 0;
       font-weight: bold;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .botao-voltar {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .botao-voltar img {
+      height: 24px;
+      margin-right: 6px;
     }
 
     .ordem-servico {
@@ -125,11 +148,15 @@
 </head>
 <body>
 
-<div class="banner-topo">
-  <h1>RODESTOCK</h1>
-  <img src="OSimg/rodeslogo.jpeg" alt="Logo Rodestock">
-</div>
-
+  <div class="banner-topo">
+    <div class="banner-esquerda">
+      <button class="botao-voltar" onclick="voltar()">
+        <img src="OSimg/casa.png" alt="Ícone Home"> Voltar
+      </button>
+    </div>
+    <img src="OSimg/rodeslogo.jpeg" alt="Logo Rodestock">
+  </div>
+  
 <div class="ordem-servico" id="ordemServico">
   <div class="secao">
     <h2>CLIENTE</h2>
@@ -230,7 +257,7 @@
 <script>
   function salvarOrdem() {
     const dados = {
-      numeroOS: document.getElementById('numeroOS').innerText,
+      numeroOS: document.getElementById('numeroOS')?.innerText,
       nomeCliente: document.getElementById('nomeCliente').value,
       enderecoCliente: document.getElementById('enderecoCliente').value,
       telefoneCliente: document.getElementById('telefoneCliente').value,
@@ -259,7 +286,11 @@
     document.body.innerHTML = ordem;
     window.print();
     document.body.innerHTML = original;
-    location.reload(); // recarrega para voltar a página normal
+    location.reload();
+  }
+
+  function voltar() {
+    window.history.back();
   }
 </script>
 
