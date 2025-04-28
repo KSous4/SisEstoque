@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RODESTOCK - Perfil do Usuário</title>
-  <link rel="shortcut icon" href="Loginimg/rodesicon.ico" type="image/x-icon">
+  
+  <link rel="shortcut icon" href="{{ url_for('static', path='Loginimg/rodesicon.ico')}}" type="image/x-icon">
   <style>
     * {
       box-sizing: border-box;
@@ -88,7 +89,7 @@
 
   <div class="header">
     <h1>RODESTOCK</h1>
-    <img src="usuarioimg/rodeslogo.jpeg" alt="Logo">
+    <img src="{{ url_for('static', path='Loginimg/usuarioimg/rodeslogo.jpeg')}}" alt="Logo">
   </div>
 
   <div class="card">

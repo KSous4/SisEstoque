@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         window.location.href = "http://localhost:3000/home";
       } else {
-        console.error('Login falhou:', result);
+        console.log('Login falhou:', result);
       }
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      console.log('Erro ao fazer login:', error);
     }
   });
 });

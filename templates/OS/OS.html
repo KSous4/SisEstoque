@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ordem de Serviço - RODESTOCK</title>
-  <link rel="shortcut icon" href="Loginimg/rodesicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', path='Loginimg/rodesicon.ico')}}"  type="image/x-icon">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -127,7 +127,7 @@
 
 <div class="banner-topo">
   <h1>RODESTOCK</h1>
-  <img src="OSimg/rodeslogo.jpeg" alt="Logo Rodestock">
+  <img src="{{ url_for('static', path='OSimg/rodeslogo.jpeg')}}" alt="Logo Rodestock">
 </div>
 
 <div class="ordem-servico" id="ordemServico">
@@ -259,7 +259,7 @@
     document.body.innerHTML = ordem;
     window.print();
     document.body.innerHTML = original;
-    location.reload(); // recarrega para voltar a página normal
+    location.reload();
   }
 </script>
 
