@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RodeStock - Ordens de Serviço</title>
+  <link rel="shortcut icon" href="OSimg/rodesicon.ico" type="image/x-icon">
+  <style>
+    /* Mantém o mesmo estilo */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+      margin: 0;
+      padding: 1.5rem;
+    }
+
+    header {
+      background: linear-gradient(to right, #00AEEB, #142C5A);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    button {
+      background-color: #00AEEB;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #search {
+      width: 26%;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      box-sizing: border-box;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
+
+    th {
+      background-color: #333;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.205);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #222;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin-bottom: 0.75rem;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 5px;
+    }
+
+    form button {
+      margin-right: 0.5rem;
+    }
+
+    #nextPageBtn {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      background-color: #00AEEB;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button onclick="window.location.href='../Principal/principal.html'" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 1rem;">
+        <img src="OSimg/casa.png" alt="voltar" style="width: 30px; height: 30px; filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.7));" />
+        <span style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);">Voltar</span>
+      </button>
+      <h1 style="position: absolute; left: 50%; transform: translateX(-50%); margin: 0; font-size: 3rem; font-weight: bold; letter-spacing: 0.5px;">ORDENS DE SERVIÇO</h1>
+    </div>
+    <button id="addOSBtn" style="box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);">ADICIONAR OS</button>
+
+  </header>
+
+  <input type="text" id="search" placeholder="Pesquisar..."/>
+  
+  <table>
+    <thead>
+      <tr style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);">
+        <th style="border-top-left-radius: 10px;">Número OS</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Status</th>
+        <th style="border-top-right-radius: 10px;"></th>
+      </tr>
+    </thead>
+    <tbody id="osTable"></tbody>
+  </table>
+
+  <button id="nextPageBtn">próxima página >></button>
+
+  <!-- Pop-up visualizar/editar -->
+  <div id="osPopup" class="modal hidden">
+    <div class="modal-content">
+      <h2>Detalhes da OS</h2>
+      <div id="osDetails"></div>
+      <button id="editBtn">Editar</button>
+      <button id="deleteBtn">Excluir</button>
+      <button onclick="closePopup('osPopup')">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Pop-up adicionar -->
+  <div id="addOSPopup" class="modal hidden">
+    <div class="modal-content">
+      <h2>Adicionar OS</h2>
+      <form id="addOSForm">
+        <input type="text" name="numero" placeholder="Número da OS" required>
+        <input type="text" name="cliente" placeholder="Nome do Cliente" required>
+        <input type="date" name="data" required>
+        <input type="text" name="status" placeholder="Status" required>
+        <textarea name="descricao" placeholder="Descrição" rows="4"></textarea>
+        <button type="submit">Adicionar</button>
+        <button type="button" onclick="closePopup('addOSPopup')">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const itemsPerPage = 30;
+    let ordens = [];
+
+    function fetchOrdens() {
+      fetch("http://127.0.0.1:8000/api/ordens")
+        .then(res => res.json())
+        .then(data => {
+          ordens = data;
+          renderOrdens();
+        });
+    }
+
+    function renderOrdens() {
+      const table = document.getElementById("osTable");
+      table.innerHTML = "";
+      ordens.forEach((os, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${os.numero}</td>
+          <td>${os.cliente}</td>
+          <td>${os.data}</td>
+          <td>${os.status}</td>
+          <td><button onclick="showOS(${index})">ver mais</button></td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    function showOS(index) {
+      const os = ordens[index];
+      const details = document.getElementById("osDetails");
+      details.innerHTML = ` 
+        <p><strong>Número:</strong> ${os.numero}</p>
+        <p><strong>Cliente:</strong> ${os.cliente}</p>
+        <p><strong>Data:</strong> ${os.data}</p>
+        <p><strong>Status:</strong> ${os.status}</p>
+        <p><strong>Descrição:</strong> ${os.descricao || "Sem descrição"}</p>
+      `;
+      document.getElementById("editBtn").onclick = () => editOS(os);
+      document.getElementById("deleteBtn").onclick = () => deleteOS(os.numero);
+      openPopup("osPopup");
+    }
+
+    function editOS(os) {
+      const form = document.getElementById("addOSForm");
+      form.numero.value = os.numero;
+      form.cliente.value = os.cliente;
+      form.data.value = os.data;
+      form.status.value = os.status;
+      form.descricao.value = os.descricao || "";
+      openPopup("addOSPopup");
+
+      form.onsubmit = e => {
+        e.preventDefault();
+        const updated = Object.fromEntries(new FormData(form));
+        fetch(`http://127.0.0.1:8000/api/ordens/${os.numero}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated)
+        }).then(() => {
+          closePopup("addOSPopup");
+          fetchOrdens();
+        });
+      closePopup("osPopup")
+      };
+    }
+
+    function deleteOS(numero) {
+      fetch(`http://127.0.0.1:8000/api/ordens/${numero}`, { method: "DELETE" })
+        .then(() => {
+          closePopup("osPopup");
+          fetchOrdens();
+        });
+    }
+
+    function closePopup(popupId) {
+      document.getElementById(popupId).classList.add("hidden");
+    }
+
+    function openPopup(popupId) {
+      document.getElementById(popupId).classList.remove("hidden");
+    }
+
+    // Alteração no botão Adicionar OS
+    document.getElementById("addOSBtn").onclick = () => {
+      window.open('OS2.html', '_blank');
+    };
+
+    // Página 2 carregando as ordens
+    window.onload = fetchOrdens;
+  </script>
+</body>
+</html>
