@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="Loginimg/rodesicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', path='Loginimg/rodesicon.ico')}}" type="image/x-icon">
   <title> RodeStock - Login </title>
   <style>
     * {
@@ -128,7 +128,7 @@
 
     <div class="header">
       <h1>RODESTOCK</h1>
-      <img src="Loginimg/rodeslogo.jpeg" alt="Logo" />
+      <img src="{{ url_for('static', path='Loginimg/rodeslogo.jpeg')}}" alt="Logo" />
     </div>
 
     <!-- Login -->
@@ -142,32 +142,6 @@
       <button type="submit" class="btn">CONFIRMAR</button>
     </form>
 
-    <!-- Cadastro -->
-    <form id="cadastroForm" style="display: none;">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" required />
-
-      <label for="emailCadastro">Email</label>
-      <input type="email" id="emailCadastro" required />
-
-      <label for="senhaCadastro">senha</label>
-      <input type="password" id="senhaCadastro" required />
-
-      <button type="submit" class="btn">CADASTRAR</button>
-    </form>
-
-    <!-- Link para alternar -->
-    <div class="switch" id="toggleArea">
-      <span id="toggleText">Não tem conta?</span>
-      <a id="toggleLink">Cadastrar-se</a>
-    </div>
-
-    <!-- Tela Inicial -->
-    <div class="tela-inicial" id="telaInicial">
-      <h2>✅ Cadastro realizado!</h2>
-      <p>Olá, <span id="nomeUsuario"></span>! Bem-vindo(a) ao RODESTOCK.</p>
-    </div>
-
   </div>
 
   <script>
@@ -178,33 +152,11 @@
     const toggleArea = document.getElementById('toggleArea');
     const telaInicial = document.getElementById('telaInicial');
     const nomeUsuario = document.getElementById('nomeUsuario');
-
-    toggleLink.addEventListener('click', () => {
-      const showingLogin = loginForm.style.display !== 'none';
-      loginForm.style.display = showingLogin ? 'none' : 'block';
-      cadastroForm.style.display = showingLogin ? 'block' : 'none';
-      toggleText.textContent = showingLogin ? 'Já tem uma conta?' : 'Não tem conta?';
-      toggleLink.textContent = showingLogin ? 'Entrar' : 'Cadastrar-se';
-    });
-
+  
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const senha = document.getElementById('senha').value;
-      alert(`Login:\nEmail: ${email}\nSenha: ${senha}`);
-    });
-
-    cadastroForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('emailCadastro').value;
-      const senha = document.getElementById('senhaCadastro').value;
-
-      // Simula cadastro e mostra a tela inicial
-      nomeUsuario.textContent = nome;
-      cadastroForm.style.display = 'none';
-      toggleArea.style.display = 'none';
-      telaInicial.style.display = 'block';
     });
   </script>
 

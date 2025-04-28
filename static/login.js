@@ -1,35 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-  
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-  
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
-  
-      try {
-        const response = await fetch('http://localhost:3000/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, senha }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('Login falhou');
-        }
-  
-        const data = await response.json();
-        console.log('Login bem-sucedido:', data);
-  
-  
-        //alert(Bem-vindo(a), ${data.nome || 'usuário'});
-  
-  
-      } catch (error) {
-        console.error('Erro ao fazer login:', error);
-        alert('Email ou senha inválidos!');
-      }
+  const loginForm = document.getElementById('loginForm');
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      "email": email,
+      "passwd": senha
     });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/login", requestOptions);
+      const result = await response.text();
+
+      if (response.ok) {
+        window.location.href = "http://localhost:3000/home";
+      } else {
+        console.error('Login falhou:', result);
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+    }
   });
+});
