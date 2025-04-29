@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ordem de Serviço - RODESTOCK</title>
-  <link rel="shortcut icon" href="Loginimg/rodesicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', path='Loginimg/rodesicon.ico')}}"  type="image/x-icon">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -148,6 +148,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD:templates/OS/OS2.html
   <div class="banner-topo">
     <div class="banner-esquerda">
       <button onclick="window.location.href='OS1.html'" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 1rem;">
@@ -158,6 +159,13 @@
     <img src="OSimg/rodeslogo.jpeg" alt="Logo Rodestock">
   </div>
   
+=======
+<div class="banner-topo">
+  <h1>RODESTOCK</h1>
+  <img src="{{ url_for('static', path='OSimg/rodeslogo.jpeg')}}" alt="Logo Rodestock">
+</div>
+
+>>>>>>> 9e48a52131943ca0ed336e189bc325df392cd9cc:templates/OS/OS.html
 <div class="ordem-servico" id="ordemServico">
   <div class="secao">
     <h2>CLIENTE</h2>
@@ -288,10 +296,13 @@
     window.print();
     document.body.innerHTML = original;
     location.reload();
+<<<<<<< HEAD:templates/OS/OS2.html
   }
 
   function voltar() {
     window.history.back();
+=======
+>>>>>>> 9e48a52131943ca0ed336e189bc325df392cd9cc:templates/OS/OS.html
   }
 </script>
 
