@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RodeStock - Estoque</title>
+  <link rel="shortcut icon" href="estoqueimg/rodesicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <button onclick="window.location.href='../Principal/principal.html'" class="back-button">
+        <img src="estoqueimg/casa.png" alt="voltar" />
+        <span>Voltar</span>
+      </button>
+      <h1>ESTOQUE</h1>
+    </div>
+    <button id="addProductBtn">ADICIONAR PRODUTO</button>
+  </header>
+  
+  <input type="text" id="search" placeholder="Pesquisar..."/>
+  <table>
+    <thead>
+      <tr>
+        <th>nome do produto</th>
+        <th>codigo do produto</th>
+        <th>ultima entrega</th>
+        <th>custo de compra</th>
+        <th>quantidade em estoque</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="productTable"></tbody>
+  </table>
+  <button id="nextPageBtn">próxima pagina >></button>
+
+  <!-- Pop-up visualizar/editar -->
+  <div id="productPopup" class="modal hidden">
+    <div class="modal-content">
+      <h2>Detalhes do Produto</h2>
+      <div id="productDetails"></div>
+      <button id="editBtn">Editar</button>
+      <button id="deleteBtn">Excluir</button>
+      <button onclick="closePopup('productPopup')">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Pop-up adicionar -->
+  <div id="addProductPopup" class="modal hidden">
+    <div class="modal-content">
+      <h2>Adicionar Produto</h2>
+      <form id="addProductForm">
+        <input type="text" name="nome" placeholder="Nome do Produto" required>
+        <input type="text" name="codigo" placeholder="Código do Produto" required>
+        <input type="date" name="entrega" required>
+        <input type="number" name="custo" placeholder="Custo de Compra" required>
+        <input type="number" name="quantidade" placeholder="Quantidade em Estoque" required>
+        <button type="submit">Adicionar</button>
+        <button type="button" onclick="closePopup('addProductPopup')">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
