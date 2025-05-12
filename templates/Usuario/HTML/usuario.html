@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RODESTOCK - Perfil do Usuário</title>
+  
+  <link rel="shortcut icon" href="{{ url_for('static', path='Loginimg/rodesicon.ico')}}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/perfil.css') }}">
+</head>
+<body>
+
+  <div class="header">
+    <h1>RODESTOCK</h1>
+    <img src="{{ url_for('static', path='Loginimg/usuarioimg/rodeslogo.jpeg')}}" alt="Logo">
+  </div>
+
+  <div class="card">
+    <div class="info">
+      <strong>Usuário:</strong>
+      <span id="nomeUsuario">Usuário Exemplo</span>
+    </div>
+    <div class="info">
+      <strong>Email:</strong>
+      <span id="emailUsuario">usuario@exemplo.com</span>
+    </div>
+    <div class="info">
+      <strong>Senha:</strong>
+      <span id="senhaUsuario">••••••••</span>
+    </div>
+
+    <button class="btn" onclick="alterarUsuario()">Alterar Usuário</button>
+    <button class="btn" onclick="alterarEmail()">Alterar Email</button>
+    <button class="btn" onclick="alterarSenha()">Alterar Senha</button>
+    <button class="btn" onclick="logout()">Sair da Conta</button>
+  </div>
+
+  <script src="{{ url_for('static', path='js/perfil.js') }}"></script>
+</body>
+</html>
